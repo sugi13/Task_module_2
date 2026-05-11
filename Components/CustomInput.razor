@@ -1,0 +1,37 @@
+
+
+<DxFormLayoutItem Caption="@label" CaptionPosition="CaptionPosition.Horizontal" BeginRow="true" ColSpanMd="12">
+    <DxTextBox 
+    Text="@Value" 
+    NullText="@Placeholder" 
+    TextChanged="@onTextChanged"    
+    TextExpression="ValidationExpression"
+    CssClass="@CustomCssClass" 
+    MaxLength="@maxLength" 
+    ReadOnly = "@IsReadOnly"
+    SizeMode="SizeMode.Medium" />
+    <ValidationMessage For="@ValidationExpression" />
+</DxFormLayoutItem>
+
+
+@code {
+    [Parameter] public string? label { get; set; }
+    [Parameter] public string? Placeholder { get; set; }
+    [Parameter] public string? Value { get; set; }
+    [Parameter] public int maxLength { get; set; } = 20;
+    
+    [Parameter] public bool IsReadOnly { get; set; } = false;
+
+    [Parameter] public string? CustomCssClass { get; set; }
+    [Parameter] public EventCallback<string?> ValueChanged { get; set; }
+
+    [Parameter] public Expression<Func<string>>? ValidationExpression { get; set; }
+
+
+    private async Task onTextChanged(string? NewValue) 
+    {
+        Value = NewValue;
+        await ValueChanged.InvokeAsync(NewValue);
+    }
+
+}

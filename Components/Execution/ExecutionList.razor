@@ -1,0 +1,119 @@
+@using Fluxor
+@inject IDispatcher Dispatcher
+@inject IState<ExecutionState> ExecutionState
+
+@using Screen_design_2.Models
+
+<DxPopup Visible="@ShowExecutionList"
+         VisibleChanged="@ShowExecutionListChanged"
+         Width="700px"
+         Height="300px"
+         ShowCloseButton="false">
+
+    <DxToolbar CssClass="mb-3">
+
+        <Items>
+
+            <DxToolbarItem>
+                <Template>
+                    <h5>Execution Lists</h5>
+                </Template>
+            </DxToolbarItem>
+
+            <DxToolbarItem Alignment="ToolbarItemAlignment.Right">
+                <Template>
+
+                    <CustomButton Text="Create New"
+                                  RenderStyle="ButtonRenderStyle.Link"
+                                  StyleMode="ButtonRenderStyleMode.Outline"
+                                  OnClick="HandleExePopup" />
+
+                </Template>
+            </DxToolbarItem>
+
+        </Items>
+
+    </DxToolbar>
+
+    <CustomGrid Data="@ExecutionState.Value.ExecutionLists">
+
+        <columns>
+
+            <DxGridDataColumn FieldName="Container_status"
+                              Caption="Container status"
+                              TextAlignment="GridTextAlignment.Center" />
+
+            <DxGridDataColumn FieldName="Work_action_process"
+                              Caption="Work action process"
+                              TextAlignment="GridTextAlignment.Center" />
+
+            <DxGridDataColumn Caption="Actions"
+                              Context="row"
+                              TextAlignment="GridTextAlignment.Center">
+
+                <CellDisplayTemplate>
+
+                    <i class="bi bi-pencil-square"
+                       style="color: #007bff; font-size: 1.1rem;" @onclick="@(() => HandleExecutionEdit((Executionlist)row.DataItem))"></i>
+
+                    <i class="bi bi-trash"
+                       style="color: #dc3545; font-size: 1.1rem; margin-left: 10px;"></i>
+
+                </CellDisplayTemplate>
+
+            </DxGridDataColumn>
+
+        </columns>
+
+    </CustomGrid>
+
+</DxPopup>
+
+<ExecutionPopup ExePopupVisible="@ShowForm" IsEditMode = "@isExecutionEdit" ExePopupVisibleChanged="@((bool value) => ShowForm = value)" selectedExecutionlist="@executionlist" />
+
+@code {
+      
+    // POPUP VISIBILITY
+    [Parameter]
+    public bool ShowExecutionList { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> ShowExecutionListChanged { get; set; }
+        
+    // Execution list edit 
+    
+    bool isExecutionEdit { get; set; } = false;
+        
+    Executionlist executionlist = new Executionlist();
+
+    // FORM POPUP
+    
+    bool ShowForm { get; set; }
+
+
+    // OPEN EXECUTION FORM
+
+    void HandleExePopup()
+    {
+        
+        isExecutionEdit = false;
+        
+        executionlist = new Executionlist {
+            Container_status = string.Empty,
+            Work_action_process = string.Empty
+        };
+        ShowForm = true;
+        
+    }
+    void HandleExecutionEdit(Executionlist item)
+    {
+       isExecutionEdit = true;
+       
+       executionlist = new Executionlist {
+              Container_status = item.Container_status,
+              Work_action_process = item.Work_action_process
+       };
+       
+         ShowForm = true;
+    }
+}

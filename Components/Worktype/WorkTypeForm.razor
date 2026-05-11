@@ -1,0 +1,33 @@
+<EditForm Model="@Model" Context="formContext" >
+
+    <DataAnnotationsValidator />
+
+    <DxFormLayout>
+
+        <DxFormLayoutGroup ColSpanLg="12">
+
+           <CustomInput CustomCssClass="custom-textbox" 
+                                 maxLength="20" label="Work Type: "
+                                 Placeholder="Work Type" @bind-Value="Model.Work_Type" IsReadOnly = "@IsEditMode"
+                                 ValidationExpression="() => Model.Work_Type"/>
+                    <CustomInput CustomCssClass="custom-textbox" maxLength="20" label="Description: "
+                                 Placeholder="Description" @bind-Value="Model.Description"
+                                 ValidationExpression="() => Model.Description" />
+                    <CustomInput CustomCssClass="custom-textbox" maxLength="20" label="Task Priority: "
+                                 Placeholder="Task Priority" @bind-Value="Model.Task_priority"
+                                 ValidationExpression="() => Model.Task_priority" />
+
+        </DxFormLayoutGroup>
+
+    </DxFormLayout>
+
+</EditForm>
+
+@code {
+
+    [Parameter]
+    public WorkType Model { get; set; } = new();
+    
+    [Parameter]
+    public bool IsEditMode { get; set; }
+}

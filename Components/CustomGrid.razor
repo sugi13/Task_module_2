@@ -1,0 +1,18 @@
+@typeparam TItem
+
+
+<DxGrid Data="@Data" CaptionAlignment="GridTextAlignment.Center">
+    <Columns>
+      @ChildContent
+    </Columns>
+</DxGrid>
+
+
+@code {
+     
+    [Parameter]
+    public required IEnumerable<TItem> Data { get; set; }
+    [Parameter]
+    public required RenderFragment ChildContent { get; set; }
+
+}

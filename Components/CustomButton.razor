@@ -1,0 +1,37 @@
+<DxButton Text="@Text"
+          RenderStyle="@RenderStyle"
+          Click="@HandleClick"
+          CssClass="@CssClass"
+          RenderStyleMode="@StyleMode"
+          SizeMode = "@ButtonSizeMode"
+          IconCssClass="@Icon"
+          SubmitFormOnClick = "@IsSubmitFormOnClick"
+          />
+
+@code {
+    [Parameter] public string? Text { get; set; }
+
+    [Parameter] public EventCallback OnClick { get; set; }
+
+    [Parameter] public string? CssClass { get; set; }
+    
+    [Parameter] public string Icon { get; set; } = string.Empty;
+    
+    [Parameter] public string? IconURL { get; set; }
+    
+    [Parameter] public bool IsSubmitFormOnClick {get; set;} 
+    
+    [Parameter] public bool Enabled { get; set; } = true;
+
+    [Parameter] public ButtonRenderStyle RenderStyle { get; set; } = ButtonRenderStyle.Primary;
+    
+    [Parameter] public ButtonRenderStyleMode StyleMode { get; set; } = ButtonRenderStyleMode.Contained;
+    
+    [Parameter] public SizeMode ButtonSizeMode {get; set;} = SizeMode.Medium;
+    
+    private async Task HandleClick()
+    {
+        if (OnClick.HasDelegate)
+            await OnClick.InvokeAsync();
+    }
+}

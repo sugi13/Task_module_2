@@ -1,0 +1,29 @@
+<CustomPopup 
+ PopupVisible = "@ExePopupVisible" 
+ PopupVisibleChanged = "@ExePopupVisibleChanged"
+ HeaderText="@(IsEditMode ? "Edit Execution": "Add Execution")"
+ OnSubmit = "Save">
+    <ExecutionForm Model="@selectedExecutionlist"/>
+</CustomPopup>
+
+
+
+@code {
+    [Parameter] public bool ExePopupVisible { get; set; }    
+    [Parameter] public Executionlist selectedExecutionlist { get; set; } = new();
+    [Parameter] public EventCallback<bool> ExePopupVisibleChanged { get; set; }
+        
+    [Parameter] public bool IsEditMode { get; set; }
+   
+    
+    [Parameter]
+    public EventCallback<Executionlist> OnSubmit { get; set; }
+        
+    private Executionlist ExecutionlistModel = new Executionlist();
+
+   private async Task Save()
+{
+    await OnSubmit.InvokeAsync(ExecutionlistModel);
+}
+
+}

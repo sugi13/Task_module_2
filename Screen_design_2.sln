@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Screen_design_2", "Screen_design_2.csproj", "{5070058C-3F81-1658-E5CE-770F720F2EAF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5070058C-3F81-1658-E5CE-770F720F2EAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5070058C-3F81-1658-E5CE-770F720F2EAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5070058C-3F81-1658-E5CE-770F720F2EAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5070058C-3F81-1658-E5CE-770F720F2EAF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AAF175FB-A7FF-4299-ADC4-AB3F95F81E17}
+	EndGlobalSection
+EndGlobal

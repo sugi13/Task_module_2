@@ -1,0 +1,30 @@
+<CustomPopup 
+ PopupVisible = "@WorkTypePopupVisible"  
+ IsEditMode = "@IsEditMode" 
+ PopupVisibleChanged = "@WorkTypePopupVisibleChanged" 
+ OnSubmit = "Save" HeaderText="@(IsEditMode ? "Edit Work Type": "Add Work Type")">
+    <WorkTypeForm Model="@SelectedWorkType" IsEditMode = "@IsEditMode" />
+</CustomPopup>
+
+
+
+@code {
+    [Parameter] public bool WorkTypePopupVisible { get; set; }
+    
+    [Parameter] public bool IsEditMode { get; set; }
+    
+    [Parameter] public EventCallback<bool> WorkTypePopupVisibleChanged { get; set; }
+        
+    [Parameter] public WorkType SelectedWorkType { get; set; } = new WorkType();
+    
+    [Parameter]
+    public EventCallback<WorkType> OnSubmit { get; set; }
+        
+    private WorkType WorkTypeModel = new WorkType();
+
+   private async Task Save(){
+    await OnSubmit.InvokeAsync(WorkTypeModel);
+    
+}
+
+}

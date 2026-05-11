@@ -1,0 +1,142 @@
+﻿@page "/"
+@using Screen_design_2.Components.Execution
+@using Screen_design_2.Components.Worktype
+@using Screen_design_2.Models
+@using Screen_design_2.Components
+@using Fluxor;
+
+@inject IDispatcher Dispatcher
+@inject IState<WorkTypeState> WorkTypeState
+
+<PageTitle>Home</PageTitle>
+
+<div class="Container">
+
+      <DxToolbar CssClass="mb-3">
+            <Items>
+                  <DxToolbarItem>
+                        <Template>
+                              <h5>Work Type Maintenance</h5>
+                        </Template>
+                  </DxToolbarItem>
+
+                  <DxToolbarItem Alignment="ToolbarItemAlignment.Right">
+                        <Template>
+                              <CustomButton Text="Create New" RenderStyle="ButtonRenderStyle.Link"
+                                            StyleMode="ButtonRenderStyleMode.Outline" OnClick="OpenWorkTypePopup" />
+                        </Template>
+                  </DxToolbarItem>
+
+            </Items>
+      </DxToolbar>
+        
+      <CustomGrid Data="@WorkTypeState.Value.WorkTypes">
+            <columns>
+                  <DxGridDataColumn FieldName="Work_Type" Caption="Work Type"
+                                    TextAlignment="GridTextAlignment.Center" />
+                  <DxGridDataColumn FieldName="Description" Caption="Description"
+                                    TextAlignment="GridTextAlignment.Center" />
+                  <DxGridDataColumn FieldName="Task_priority" Caption="Task priority"
+                                    TextAlignment="GridTextAlignment.Center" />
+                                    
+                  <DxGridDataColumn FieldName="Execution" Caption="Execution"
+                                    TextAlignment="GridTextAlignment.Center">
+                                    <CellDisplayTemplate>
+                                          <i @onclick="OpenExecutionListPopup" class="bi bi-card-checklist" style="color: #007bff; font-size: 1.1rem;"></i>
+                                    </CellDisplayTemplate>
+                                    
+                  </DxGridDataColumn>
+                  <DxGridDataColumn FieldName="Routes" Caption="Routes"
+                                    TextAlignment="GridTextAlignment.Center" >
+                                    <CellDisplayTemplate>
+                                          <i class="bi bi-card-checklist" style="color: #007bff; font-size: 1.1rem;"></i>
+                                          
+                                    </CellDisplayTemplate>
+                                    </DxGridDataColumn>
+                  <DxGridDataColumn FieldName="Equipments" Caption="Equipments"
+                                    TextAlignment="GridTextAlignment.Center">
+                                    <CellDisplayTemplate>
+                                          <i class="bi bi-card-checklist" style="color: #007bff; font-size: 1.1rem;"></i>
+                                    </CellDisplayTemplate>
+                  </DxGridDataColumn>
+
+                  <DxGridDataColumn Caption="Actions" Context="row" TextAlignment="GridTextAlignment.Center">
+                        <CellDisplayTemplate>
+                              <i class="bi bi-pencil-fill"
+                                 @onclick="@(() => OpenWorkTypeEditPopup((WorkType)row.DataItem))"></i>
+                        </CellDisplayTemplate>
+                  </DxGridDataColumn>
+            </columns>
+      </CustomGrid>
+</div>
+
+<WorkTypePopup WorkTypePopupVisible="@ShowWorkTypePopup" IsEditMode="@IsWorkTypeEdit" WorkTypePopupVisibleChanged="@((value) => ShowWorkTypePopup = value)" SelectedWorkType="@SelectedWorkType" OnSubmit="@HandleSubmit" />
+
+<ExecutionList ShowExecutionList="@ShowExecutionListPopup" ShowExecutionListChanged="@((bool value) => ShowExecutionListPopup = value)"/>
+
+
+@code {
+
+    bool ShowWorkTypePopup = false;
+
+    bool ShowExecutionListPopup = false;
+
+    bool IsWorkTypeEdit = false;
+
+    WorkType SelectedWorkType = new();
+    
+    void OpenWorkTypePopup()
+    {
+        IsWorkTypeEdit = false;
+
+        SelectedWorkType = new WorkType
+        {
+            Work_Type = string.Empty,
+            Description = string.Empty,
+            Task_priority = string.Empty
+        };
+
+        ShowWorkTypePopup = true;
+    }
+
+
+    void OpenExecutionListPopup()
+    {
+        //close worktype popup first
+
+        ShowWorkTypePopup = false;
+
+        ShowExecutionListPopup = true;
+    }
+
+    void OpenWorkTypeEditPopup(WorkType item)
+    {
+        IsWorkTypeEdit = true;
+
+        SelectedWorkType = new WorkType
+        {
+            Work_Type = item.Work_Type,
+            Description = item.Description,
+            Task_priority = item.Task_priority
+        };
+
+        ShowWorkTypePopup = true;
+    }
+
+
+    void HandleSubmit(WorkType workType)
+    {
+        if (WorkTypeState.Value.WorkTypes.Any(wt => wt.Work_Type == workType.Work_Type))
+        {
+            Dispatcher.Dispatch(new UpdateWorkTypeAction(workType));
+        }
+        else
+        {
+            Dispatcher.Dispatch(new CreateWorkTypeAction(workType));
+        }
+
+        // CLOSE POPUP AFTER SAVE
+
+        ShowWorkTypePopup = false;
+    }
+}

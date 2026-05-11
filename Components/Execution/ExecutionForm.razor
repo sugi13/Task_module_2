@@ -1,0 +1,27 @@
+<EditForm Model="@Model" Context="formContext" HeaderText = "create Execution">
+
+    <DataAnnotationsValidator />
+
+    <DxFormLayout>
+
+        <DxFormLayoutGroup ColSpanLg="12">
+
+           <CustomInput CustomCssClass="custom-textbox" 
+                                 maxLength="20" label="Container Status: "
+                                 Placeholder="Container Status" @bind-Value="Model.Container_status" 
+                                 ValidationExpression="() => Model.Container_status"/>
+            <CustomInput CustomCssClass="custom-textbox" maxLength="20" label="Work action Process: "
+                                 Placeholder="Work action Process" @bind-Value="Model.Work_action_process"
+                                 ValidationExpression="() => Model.Work_action_process" />
+
+        </DxFormLayoutGroup>
+
+    </DxFormLayout>
+
+</EditForm>
+
+@code {
+
+    [Parameter]
+    public Executionlist Model { get; set; } = new();
+}
