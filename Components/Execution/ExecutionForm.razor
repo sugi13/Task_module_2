@@ -1,4 +1,4 @@
-<EditForm Model="@Model" Context="formContext" HeaderText = "create Execution">
+<EditForm Model="@Model" Context="formContext" HeaderText = "create Execution" >
 
     <DataAnnotationsValidator />
 
@@ -22,6 +22,8 @@
 
 @code {
 
-    [Parameter]
-    public Executionlist Model { get; set; } = new();
+    [Parameter] public Executionlist Model { get; set; } = new();
+    
+    [Parameter] public bool IsEditMode { get; set; }
+    
 }

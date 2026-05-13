@@ -2,8 +2,8 @@
  PopupVisible = "@ExePopupVisible" 
  PopupVisibleChanged = "@ExePopupVisibleChanged"
  HeaderText="@(IsEditMode ? "Edit Execution": "Add Execution")"
- OnSubmit = "Save">
-    <ExecutionForm Model="@selectedExecutionlist"/>
+ OnSubmit = "Save" IsEditMode="@IsEditMode">
+    <ExecutionForm Model="@selectedExecutionlist" IsEditMode = "@IsEditMode"/>
 </CustomPopup>
 
 

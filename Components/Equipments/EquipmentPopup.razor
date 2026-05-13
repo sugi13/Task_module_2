@@ -1,7 +1,7 @@
 <CustomPopup PopupVisible = "@EquipPopupVisible" 
              PopupVisibleChanged = "@EquipPopupVisibleChanged"
              HeaderText="@(IsEditMode ? "Edit Equipment": "Add Equipment")"
-             OnSubmit = "Save">
+             OnSubmit = "Save" IsEditMode="@IsEditMode">
     <EquipmentForm Model="@selectedEquipment" IsEditMode="@IsEditMode"/>
 </CustomPopup>
 

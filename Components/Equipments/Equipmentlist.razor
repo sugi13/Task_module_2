@@ -68,7 +68,7 @@
 
 </DxPopup>
 
-<EquipmentPopup EquipPopupVisible = "ShowEquipmentForm" EquipPopupVisibleChanged= "@((bool value) => ShowEquipmentForm = value)" IsEditMode = "@isEquipmentEdit" selectedEquipment="@equipment"/>
+<EquipmentPopup EquipPopupVisible = "ShowEquipmentForm" EquipPopupVisibleChanged= "@((bool value) => ShowEquipmentForm = value)" IsEditMode = "@isEquipmentEdit" selectedEquipment="@equipment" OnSubmit="HandleEquipmentSubmit"/>
 
 
 @code {
@@ -116,4 +116,20 @@
        
          ShowEquipmentForm = true;
     }
+    
+      void HandleEquipmentSubmit(Equipment equipment)
+      {
+            if (EquipmentState.Value.EquipmentList.Any(e => e.equipment_eligibility == equipment.equipment_eligibility))
+            {
+                  Dispatcher.Dispatch(new UpdateEquipmentAction(equipment));
+            }
+            else
+            {
+                  Dispatcher.Dispatch(new CreateEquipmentAction(equipment));
+            }
+
+            // CLOSE POPUP AFTER SAVE
+
+            ShowEquipmentForm = false;
+      }
 }

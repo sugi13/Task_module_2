@@ -70,7 +70,7 @@
 
 </DxPopup>
 
-<ExecutionPopup ExePopupVisible="@ShowForm" IsEditMode = "@isExecutionEdit" ExePopupVisibleChanged="@((bool value) => ShowForm = value)" selectedExecutionlist="@executionlist" />
+<ExecutionPopup ExePopupVisible="@ShowForm" IsEditMode = "@isExecutionEdit" ExePopupVisibleChanged="@((bool value) => ShowForm = value)" selectedExecutionlist="@executionlist" OnSubmit="HandleExecutionSubmit"/>
 
 @code {
       
@@ -123,4 +123,21 @@
        
          ShowForm = true;
     }
+    
+    
+      void HandleExecutionSubmit(Executionlist executionlist)
+      {
+            if (ExecutionState.Value.ExecutionLists.Any(el => el.Container_status == executionlist.Container_status))
+            {
+                  Dispatcher.Dispatch(new UpdateExecutionAction(executionlist));
+            }
+            else
+            {
+                  Dispatcher.Dispatch(new CreateExecutionAction(executionlist));
+            }
+
+            // CLOSE POPUP AFTER SAVE
+
+            ShowForm = false;
+      }
 }

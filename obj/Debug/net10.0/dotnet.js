@@ -5,7 +5,7 @@ var e=!1;const t=async()=>WebAssembly.validate(new Uint8Array([0,97,115,109,1,0,
   "mainAssemblyName": "Screen_design_2",
   "applicationEnvironment": "Development",
   "resources": {
-    "hash": "sha256-femZaiV75jx08kVcocMlo16xXEknvZxqMmBGxY2r0Wk=",
+    "hash": "sha256-6eosXWZt1VEkBLkncjY3HPwSsC5mLS/sk2aqsXuPT88=",
     "jsModuleNative": [
       {
         "name": "dotnet.native.cs8mcre4gh.js"
@@ -1149,15 +1149,15 @@ var e=!1;const t=async()=>WebAssembly.validate(new Uint8Array([0,97,115,109,1,0,
       },
       {
         "virtualPath": "Screen_design_2.wasm",
-        "name": "Screen_design_2.988gb5il7s.wasm",
-        "integrity": "sha256-qQycRSK7DRABBm+R4kJbmES3KJt6y9gsnlGxUJUldRQ="
+        "name": "Screen_design_2.jnp3btyah5.wasm",
+        "integrity": "sha256-YTyrXgqDGW64KZhDHdnO1xmaIHz1gLGKvrR5aLU0/7I="
       }
     ],
     "pdb": [
       {
         "virtualPath": "Screen_design_2.pdb",
-        "name": "Screen_design_2.15wheqaqc9.pdb",
-        "integrity": "sha256-C63u84xk8qfeUSG88R3J3Gvl4kxTCIontfo9EL5yawE="
+        "name": "Screen_design_2.2a510ysh95.pdb",
+        "integrity": "sha256-+phfw+8hP48XKt6Yqjrsr0t/Y0u4dgaLxxJ4ZGmiq48="
       }
     ],
     "satelliteResources": {

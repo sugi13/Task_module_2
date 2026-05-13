@@ -68,7 +68,7 @@
 
 </DxPopup>
 
-<RoutePopup RoutePopupVisible = "@ShowRouteForm" RoutePopupVisibleChanged="@((bool value) => ShowRouteForm = value)" IsEditMode = "@isRouteListEdit" selectedRoutelist="@routelist"/>
+<RoutePopup RoutePopupVisible = "@ShowRouteForm" RoutePopupVisibleChanged="@((bool value) => ShowRouteForm = value)" IsEditMode = "@isRouteListEdit" selectedRoutelist="@routelist" OnSubmit="HandleRouteSubmit"/>
 
 
 @code {
@@ -123,4 +123,20 @@
        
         ShowRouteForm = true;
     }
+    
+      void HandleRouteSubmit(Routelist routelist)
+      {
+            if (RouteState.Value.RouteLists.Any(r => r.equipment == routelist.equipment))
+            {
+                  Dispatcher.Dispatch(new UpdateRouteAction(routelist));
+            }
+            else
+            {
+                  Dispatcher.Dispatch(new CreateRouteAction(routelist));
+            }
+
+            // CLOSE POPUP AFTER SAVE
+
+            ShowRouteForm = false;
+      }
 }

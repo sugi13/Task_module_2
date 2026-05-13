@@ -1,7 +1,7 @@
 <CustomPopup PopupVisible = "@RoutePopupVisible" 
  PopupVisibleChanged = "@RoutePopupVisibleChanged"
  HeaderText="@(IsEditMode ? "Edit Route": "Add Route")"
- OnSubmit = "Save">
+ OnSubmit = "Save" IsEditMode="@IsEditMode">
     <RouteForm Model="@selectedRoutelist"/>
 </CustomPopup>
 
