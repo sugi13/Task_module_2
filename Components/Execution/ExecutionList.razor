@@ -8,6 +8,7 @@
          VisibleChanged="@ShowExecutionListChanged"
          Width="700px"
          Height="300px"
+         HeaderText="Execution List"
          ShowCloseButton="false">
 
     <DxToolbar CssClass="mb-3">
@@ -16,7 +17,7 @@
 
             <DxToolbarItem>
                 <Template>
-                    <h5>Execution Lists</h5>
+                    <p>@SelectedWorkTypeName</p>
                 </Template>
             </DxToolbarItem>
 
@@ -80,11 +81,15 @@
     [Parameter]
     public EventCallback<bool> ShowExecutionListChanged { get; set; }
         
+    [Parameter] public WorkType SelectedWorkType { get; set; } = new WorkType();
+        
     // Execution list edit 
     
     bool isExecutionEdit { get; set; } = false;
         
     Executionlist executionlist = new Executionlist();
+    
+    [Parameter] public string SelectedWorkTypeName { get; set; } = string.Empty;
 
     // FORM POPUP
     
@@ -103,6 +108,8 @@
             Work_action_process = string.Empty
         };
         ShowForm = true;
+        
+        Console.WriteLine(SelectedWorkType.Work_Type);
         
     }
     void HandleExecutionEdit(Executionlist item)

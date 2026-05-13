@@ -1,0 +1,119 @@
+@using Fluxor
+
+@inject IDispatcher Dispatcher
+
+@inject IState<EquipmentState> EquipmentState
+    
+<DxPopup Visible="ShowEquipmentList"
+         VisibleChanged="@ShowEquipmentListChanged"
+         Width="700px"
+         Height="300px"
+            HeaderText="Equipment Eligibility"
+         ShowCloseButton="false">
+
+    <DxToolbar CssClass="mb-3">
+
+        <Items>
+
+            <DxToolbarItem>
+                <Template>
+                    <h5>@SelectedWorkTypeName</h5>
+                </Template>
+            </DxToolbarItem>
+
+            <DxToolbarItem Alignment="ToolbarItemAlignment.Right">
+                <Template>
+
+                    <CustomButton Text="Create New"
+                                  RenderStyle="ButtonRenderStyle.Link"
+                                  StyleMode="ButtonRenderStyleMode.Outline"
+                                  OnClick="HandleEquipmentPopup"/>
+
+                </Template>
+            </DxToolbarItem>
+
+        </Items>
+
+    </DxToolbar>
+
+    <CustomGrid Data="@EquipmentState.Value.EquipmentList">
+
+        <columns>
+
+            <DxGridDataColumn FieldName="equipment_eligibility" 
+                              Caption="Equipment Eligibility"
+                              TextAlignment="GridTextAlignment.Center" />
+
+
+            <DxGridDataColumn Caption="Actions"
+                              Context="row"
+                              TextAlignment="GridTextAlignment.Center">
+
+                <CellDisplayTemplate>
+
+                    <i class="bi bi-pencil-square"
+                       style="color: #007bff; font-size: 1.1rem;"
+                       @onclick="@(() => HandleEquipmentEdit((Equipment)row.DataItem))"></i>
+
+                    <i class="bi bi-trash"
+                       style="color: #dc3545; font-size: 1.1rem; margin-left: 10px;"></i>
+
+                </CellDisplayTemplate>
+
+            </DxGridDataColumn>
+
+        </columns>
+
+    </CustomGrid>
+
+</DxPopup>
+
+<EquipmentPopup EquipPopupVisible = "ShowEquipmentForm" EquipPopupVisibleChanged= "@((bool value) => ShowEquipmentForm = value)" IsEditMode = "@isEquipmentEdit" selectedEquipment="@equipment"/>
+
+
+@code {
+     // POPUP VISIBILITY
+    [Parameter] public bool ShowEquipmentList { get; set; }
+
+    [Parameter] public EventCallback<bool> ShowEquipmentListChanged { get; set; }
+        
+    // Execution list edit 
+    
+    bool isEquipmentEdit { get; set; } = false;
+        
+    Equipment equipment { get; set; } = new Equipment();
+
+    // FORM POPUP
+    
+    bool ShowEquipmentForm { get; set; }
+    
+    
+    [Parameter] public string SelectedWorkTypeName { get; set; } = string.Empty;
+    
+
+
+    // OPEN EQUIPMENT FORM
+
+    void HandleEquipmentPopup()
+    {
+        
+        isEquipmentEdit = false;
+        
+        equipment = new Equipment{
+            equipment_eligibility = string.Empty
+        };
+        
+        ShowEquipmentForm = true;
+        
+    }
+    void HandleEquipmentEdit(Equipment item)
+    {
+       isEquipmentEdit = true;
+       
+       equipment = new Equipment {
+              equipment_eligibility = item.equipment_eligibility,
+       };
+       
+         ShowEquipmentForm = true;
+    }
+}

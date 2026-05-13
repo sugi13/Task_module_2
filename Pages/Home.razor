@@ -1,6 +1,8 @@
-﻿@page "/"
+﻿ii@page "/"
+@using Screen_design_2.Components.Equipments
 @using Screen_design_2.Components.Execution
 @using Screen_design_2.Components.Worktype
+@using Screen_design_2.Components.routes
 @using Screen_design_2.Models
 @using Screen_design_2.Components
 @using Fluxor;
@@ -39,25 +41,24 @@
                   <DxGridDataColumn FieldName="Task_priority" Caption="Task priority"
                                     TextAlignment="GridTextAlignment.Center" />
                                     
-                  <DxGridDataColumn FieldName="Execution" Caption="Execution"
-                                    TextAlignment="GridTextAlignment.Center">
-                                    <CellDisplayTemplate>
-                                          <i @onclick="OpenExecutionListPopup" class="bi bi-card-checklist" style="color: #007bff; font-size: 1.1rem;"></i>
-                                    </CellDisplayTemplate>
+                  <DxGridDataColumn FieldName="Execution" Caption="Execution" TextAlignment="GridTextAlignment.Center">
+                        <CellDisplayTemplate Context = "context">
+                                   <i @onclick="@(() => OpenExecutionListPopup((WorkType)context.DataItem))"  class="bi bi-card-checklist" style="color: #007bff; font-size: 1.1rem;"></i>
+                        </CellDisplayTemplate>
                                     
                   </DxGridDataColumn>
-                  <DxGridDataColumn FieldName="Routes" Caption="Routes"
-                                    TextAlignment="GridTextAlignment.Center" >
-                                    <CellDisplayTemplate>
-                                          <i class="bi bi-card-checklist" style="color: #007bff; font-size: 1.1rem;"></i>
+                  <DxGridDataColumn FieldName="Routes" Caption="Routes" TextAlignment="GridTextAlignment.Center">
+                        <CellDisplayTemplate Context = "context">
+                       <i @onclick="@(() => OpenRouteListPopup((WorkType)context.DataItem))" class="bi bi-card-checklist" style="color: #007bff; font-size: 1.1rem;"></i>
                                           
-                                    </CellDisplayTemplate>
-                                    </DxGridDataColumn>
+                        </CellDisplayTemplate>
+                  </DxGridDataColumn>
                   <DxGridDataColumn FieldName="Equipments" Caption="Equipments"
                                     TextAlignment="GridTextAlignment.Center">
-                                    <CellDisplayTemplate>
-                                          <i class="bi bi-card-checklist" style="color: #007bff; font-size: 1.1rem;"></i>
-                                    </CellDisplayTemplate>
+                        <CellDisplayTemplate Context = "context">
+                              <i @onclick="@(() => OpenEquipmentListPopup((WorkType)context.DataItem))"
+                                 class="bi bi-card-checklist" style="color: #007bff; font-size: 1.1rem;"></i>
+                        </CellDisplayTemplate>
                   </DxGridDataColumn>
 
                   <DxGridDataColumn Caption="Actions" Context="row" TextAlignment="GridTextAlignment.Center">
@@ -70,73 +71,113 @@
       </CustomGrid>
 </div>
 
-<WorkTypePopup WorkTypePopupVisible="@ShowWorkTypePopup" IsEditMode="@IsWorkTypeEdit" WorkTypePopupVisibleChanged="@((value) => ShowWorkTypePopup = value)" SelectedWorkType="@SelectedWorkType" OnSubmit="@HandleSubmit" />
+<WorkTypePopup WorkTypePopupVisible="@ShowWorkTypePopup" IsEditMode="@IsWorkTypeEdit"
+               WorkTypePopupVisibleChanged="@((value) => ShowWorkTypePopup = value)" SelectedWorkType="@SelectedWorkType"
+               OnSubmit="@HandleSubmit" />
 
-<ExecutionList ShowExecutionList="@ShowExecutionListPopup" ShowExecutionListChanged="@((bool value) => ShowExecutionListPopup = value)"/>
+<ExecutionList SelectedWorkTypeName = "@selectedWorkTypeName" ShowExecutionList="@ShowExecutionListPopup"
+               ShowExecutionListChanged="@((bool value) => ShowExecutionListPopup = value)" />
+
+<Equipmentlist SelectedWorkTypeName = "@selectedWorkTypeName" ShowEquipmentList="@ShowEquipmentListPopup"
+               ShowEquipmentListChanged="@((bool value) => ShowEquipmentListPopup = value)" />
+
+<RouteList SelectedWorkTypeName = "@selectedWorkTypeName" ShowRouteList="@ShowRouteListPopup"
+           ShowRouteListChanged="@((bool value) => ShowRouteListPopup = value)" />
 
 
 @code {
+      
+     private string selectedWorkTypeName;
 
-    bool ShowWorkTypePopup = false;
+      bool ShowWorkTypePopup = false;
 
-    bool ShowExecutionListPopup = false;
+      bool ShowExecutionListPopup = false;
 
-    bool IsWorkTypeEdit = false;
-
-    WorkType SelectedWorkType = new();
+      bool ShowEquipmentListPopup = false;
     
-    void OpenWorkTypePopup()
-    {
-        IsWorkTypeEdit = false;
+      bool ShowRouteListPopup = false;
 
-        SelectedWorkType = new WorkType
-        {
-            Work_Type = string.Empty,
-            Description = string.Empty,
-            Task_priority = string.Empty
-        };
+      bool IsWorkTypeEdit = false;
 
-        ShowWorkTypePopup = true;
-    }
+      WorkType SelectedWorkType = new();
+    
+      void OpenWorkTypePopup()
+      {
+            IsWorkTypeEdit = false;
+
+            SelectedWorkType = new WorkType
+            {
+                  Work_Type = string.Empty,
+                  Description = string.Empty,
+                  Task_priority = string.Empty
+            };
+
+            ShowWorkTypePopup = true;
+      }
+    
+      void OpenWorkTypeEditPopup(WorkType item)
+      {
+            IsWorkTypeEdit = true;
+
+            SelectedWorkType = new WorkType
+            {
+                  Work_Type = item.Work_Type,
+                  Description = item.Description,
+                  Task_priority = item.Task_priority
+            };
+
+            ShowWorkTypePopup = true;
+      }
+
+      void OpenExecutionListPopup(WorkType item)
+      {
+            //close worktype popup first
+
+            ShowWorkTypePopup = false;
+
+            ShowExecutionListPopup = true;
+        
+            selectedWorkTypeName = item.Work_Type;
+      }
+    
+      void OpenEquipmentListPopup(WorkType item)
+      {
+            //close worktype popup first
+
+            ShowWorkTypePopup = false;
+        
+            ShowEquipmentListPopup = true;
+        
+           selectedWorkTypeName = item.Work_Type;
+      }
+    
+      void OpenRouteListPopup(WorkType item)
+      {
+            //close worktype popup first
+
+            ShowWorkTypePopup = false;
+        
+            ShowEquipmentListPopup = false;
+        
+            ShowRouteListPopup = true;
+        
+            selectedWorkTypeName = item.Work_Type;
+      }
 
 
-    void OpenExecutionListPopup()
-    {
-        //close worktype popup first
+      void HandleSubmit(WorkType workType)
+      {
+            if (WorkTypeState.Value.WorkTypes.Any(wt => wt.Work_Type == workType.Work_Type))
+            {
+                  Dispatcher.Dispatch(new UpdateWorkTypeAction(workType));
+            }
+            else
+            {
+                  Dispatcher.Dispatch(new CreateWorkTypeAction(workType));
+            }
 
-        ShowWorkTypePopup = false;
+            // CLOSE POPUP AFTER SAVE
 
-        ShowExecutionListPopup = true;
-    }
-
-    void OpenWorkTypeEditPopup(WorkType item)
-    {
-        IsWorkTypeEdit = true;
-
-        SelectedWorkType = new WorkType
-        {
-            Work_Type = item.Work_Type,
-            Description = item.Description,
-            Task_priority = item.Task_priority
-        };
-
-        ShowWorkTypePopup = true;
-    }
-
-
-    void HandleSubmit(WorkType workType)
-    {
-        if (WorkTypeState.Value.WorkTypes.Any(wt => wt.Work_Type == workType.Work_Type))
-        {
-            Dispatcher.Dispatch(new UpdateWorkTypeAction(workType));
-        }
-        else
-        {
-            Dispatcher.Dispatch(new CreateWorkTypeAction(workType));
-        }
-
-        // CLOSE POPUP AFTER SAVE
-
-        ShowWorkTypePopup = false;
-    }
+            ShowWorkTypePopup = false;
+      }
 }

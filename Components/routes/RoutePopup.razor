@@ -1,0 +1,29 @@
+<CustomPopup PopupVisible = "@RoutePopupVisible" 
+ PopupVisibleChanged = "@RoutePopupVisibleChanged"
+ HeaderText="@(IsEditMode ? "Edit Route": "Add Route")"
+ OnSubmit = "Save">
+    <RouteForm Model="@selectedRoutelist"/>
+</CustomPopup>
+
+
+
+@code {
+    [Parameter] public bool RoutePopupVisible { get; set; }    
+    [Parameter] public EventCallback<bool> RoutePopupVisibleChanged { get; set; }
+        
+    [Parameter] public Routelist selectedRoutelist { get; set; } = new();
+        
+    [Parameter] public bool IsEditMode { get; set; }
+   
+    
+    [Parameter]
+    public EventCallback<Routelist> OnSubmit { get; set; }
+        
+    private Routelist RouteModel = new Routelist();
+
+   private async Task Save()
+{
+    await OnSubmit.InvokeAsync(RouteModel);
+}
+
+}

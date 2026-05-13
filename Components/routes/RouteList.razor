@@ -1,0 +1,126 @@
+@using Fluxor
+
+@inject IDispatcher Dispatcher
+
+@inject IState<RouteState> RouteState
+
+@inject IState<EquipmentState> EquipmentState
+    
+<DxPopup Visible="ShowRouteList" VisibleChanged="@ShowRouteListChanged" Width="700px" Height="300px"
+         HeaderText="Routes List" ShowCloseButton="false">
+
+    <DxToolbar CssClass="mb-3">
+
+        <Items>
+
+            <DxToolbarItem>
+                <Template>
+                    <h5>@SelectedWorkTypeName</h5>
+                </Template>
+            </DxToolbarItem>
+
+            <DxToolbarItem Alignment="ToolbarItemAlignment.Right">
+                <Template>
+
+                    <CustomButton Text="Create New" RenderStyle="ButtonRenderStyle.Link"
+                                  StyleMode="ButtonRenderStyleMode.Outline" OnClick="HandleRoutePopup" />
+
+                </Template>
+            </DxToolbarItem>
+
+        </Items>
+
+    </DxToolbar>
+
+    <CustomGrid Data="@RouteState.Value.RouteLists">
+
+        <columns>
+
+            <DxGridDataColumn FieldName="equipment" Caption="Equipment"
+                              TextAlignment="GridTextAlignment.Center" />
+            
+               <DxGridDataColumn FieldName="Starting" Caption="Starting WG/WA"
+                              TextAlignment="GridTextAlignment.Center" />
+              
+              <DxGridDataColumn FieldName="Destination" Caption="Destination WG/WA"
+                              TextAlignment="GridTextAlignment.Center" />
+            
+            <DxGridDataColumn FieldName="Next" Caption="Next WG/WA"
+                              TextAlignment="GridTextAlignment.Center" />
+
+
+            <DxGridDataColumn Caption="Actions" Context="row" TextAlignment="GridTextAlignment.Center">
+
+                <CellDisplayTemplate>
+
+                    <i class="bi bi-pencil-square" style="color: #007bff; font-size: 1.1rem;"
+                       @onclick="@(() => HandleRouteEdit((Routelist)row.DataItem))"></i>
+
+                    <i class="bi bi-trash" style="color: #dc3545; font-size: 1.1rem; margin-left: 10px;"></i>
+
+                </CellDisplayTemplate>
+
+            </DxGridDataColumn>
+
+        </columns>
+
+    </CustomGrid>
+
+</DxPopup>
+
+<RoutePopup RoutePopupVisible = "@ShowRouteForm" RoutePopupVisibleChanged="@((bool value) => ShowRouteForm = value)" IsEditMode = "@isRouteListEdit" selectedRoutelist="@routelist"/>
+
+
+@code {
+    // POPUP VISIBILITY
+    [Parameter] public bool ShowRouteList { get; set; }
+
+    [Parameter] public EventCallback<bool> ShowRouteListChanged { get; set; }
+        
+    [Parameter] public string SelectedWorkTypeName { get; set; } = string.Empty;
+    
+        
+    // Execution list edit
+    
+    bool isRouteListEdit { get; set; } = false;
+        
+    Routelist routelist { get; set; } = new Routelist();
+
+    // FORM POPUP
+    
+    bool ShowRouteForm { get; set; }
+
+
+    // OPEN ROUTE FORM
+
+    void HandleRoutePopup()
+    {
+        
+        isRouteListEdit = false;
+        
+        routelist = new Routelist
+        {
+            equipment = string.Empty,
+            Starting = string.Empty,
+            Destination = string.Empty,
+            Next = string.Empty
+        };
+        
+        ShowRouteForm = true;
+        
+    }
+    void HandleRouteEdit(Routelist item)
+    {
+        isRouteListEdit = true;
+       
+        routelist = new Routelist
+        {
+            equipment = item.equipment,
+            Starting = item.Starting,
+            Destination = item.Destination,
+            Next = item.Next
+        };
+       
+        ShowRouteForm = true;
+    }
+}

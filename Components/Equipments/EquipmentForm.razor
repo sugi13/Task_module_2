@@ -1,0 +1,26 @@
+<EditForm Model="@Model" Context="formContext" >
+
+    <DataAnnotationsValidator />
+
+    <DxFormLayout>
+
+        <DxFormLayoutGroup ColSpanLg="12">
+            
+           <CustomInput CustomCssClass="custom-textbox" 
+                                 maxLength="20" label="New Equipment Eligibility: "
+                                 Placeholder="Enter Equipment Eligibility" @bind-Value="Model.equipment_eligibility" 
+                                 ValidationExpression="() => Model.equipment_eligibility"/>
+        </DxFormLayoutGroup>
+
+    </DxFormLayout>
+
+</EditForm>
+
+@code {
+
+    [Parameter]
+    public Equipment Model { get; set; } = new();
+    
+    [Parameter]
+    public bool IsEditMode { get; set; }
+}

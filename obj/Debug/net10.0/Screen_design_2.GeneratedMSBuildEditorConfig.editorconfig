@@ -48,6 +48,18 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDdXN0b21Qb3B1cC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/sukan/OneDrive/Desktop/code/blazor_projects/Screen_design_2/Components/Equipments/EquipmentForm.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xFcXVpcG1lbnRzXEVxdWlwbWVudEZvcm0ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sukan/OneDrive/Desktop/code/blazor_projects/Screen_design_2/Components/Equipments/Equipmentlist.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xFcXVpcG1lbnRzXEVxdWlwbWVudGxpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sukan/OneDrive/Desktop/code/blazor_projects/Screen_design_2/Components/Equipments/EquipmentPopup.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xFcXVpcG1lbnRzXEVxdWlwbWVudFBvcHVwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/sukan/OneDrive/Desktop/code/blazor_projects/Screen_design_2/Components/Execution/ExecutionForm.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xFeGVjdXRpb25cRXhlY3V0aW9uRm9ybS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
@@ -58,6 +70,18 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/sukan/OneDrive/Desktop/code/blazor_projects/Screen_design_2/Components/Execution/ExecutionPopup.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xFeGVjdXRpb25cRXhlY3V0aW9uUG9wdXAucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sukan/OneDrive/Desktop/code/blazor_projects/Screen_design_2/Components/routes/RouteForm.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xyb3V0ZXNcUm91dGVGb3JtLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sukan/OneDrive/Desktop/code/blazor_projects/Screen_design_2/Components/routes/RouteList.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xyb3V0ZXNcUm91dGVMaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sukan/OneDrive/Desktop/code/blazor_projects/Screen_design_2/Components/routes/RoutePopup.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xyb3V0ZXNcUm91dGVQb3B1cC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/sukan/OneDrive/Desktop/code/blazor_projects/Screen_design_2/Components/Worktype/WorkTypeForm.razor]

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Screen_design_2")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5846972ed36f52a4dd78bdf6380b8ecffb08c713")]
 [assembly: System.Reflection.AssemblyProductAttribute("Screen_design_2")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Screen_design_2")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

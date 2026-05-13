@@ -1,0 +1,27 @@
+<CustomPopup PopupVisible = "@EquipPopupVisible" 
+             PopupVisibleChanged = "@EquipPopupVisibleChanged"
+             HeaderText="@(IsEditMode ? "Edit Equipment": "Add Equipment")"
+             OnSubmit = "Save">
+    <EquipmentForm Model="@selectedEquipment" IsEditMode="@IsEditMode"/>
+</CustomPopup>
+
+
+@code {
+    [Parameter] public bool EquipPopupVisible { get; set; }
+    
+    [Parameter] public EventCallback<bool> EquipPopupVisibleChanged { get; set; }
+        
+    [Parameter] public Equipment selectedEquipment { get; set; } = new();
+    
+    [Parameter] public bool IsEditMode { get; set; }
+    
+    
+    [Parameter] public EventCallback<Equipment> OnSubmit { get; set; }
+        
+    private Equipment EquipmentModel = new Equipment();
+
+   private async Task Save()
+{
+    await OnSubmit.InvokeAsync(EquipmentModel);
+}
+}

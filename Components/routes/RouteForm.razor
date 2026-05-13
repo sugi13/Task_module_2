@@ -1,0 +1,39 @@
+
+<EditForm Model="@Model" Context="formContext" >
+
+    <DataAnnotationsValidator />
+
+    <DxFormLayout>
+
+        <DxFormLayoutGroup ColSpanLg="12">
+
+           <CustomInput CustomCssClass="custom-textbox" 
+                                 maxLength="20" label="Equipment "
+                                 Placeholder="Enter Equipment" @bind-Value="Model.equipment"
+                                 ValidationExpression="() => Model.equipment"/>
+              <CustomInput CustomCssClass="custom-textbox" 
+                                 maxLength="20" label="Starting WG/WA"
+                                 Placeholder="Enter Starting WG/WA" @bind-Value="Model.Starting"
+                                 ValidationExpression="() => Model.Starting"/>
+                 <CustomInput CustomCssClass="custom-textbox" 
+                                 maxLength="20" label="Destination WG/WA"
+                                 Placeholder="Enter Destination WG/WA" @bind-Value="Model.Destination"
+                                 ValidationExpression="() => Model.Destination"/>
+                  <CustomInput CustomCssClass="custom-textbox" 
+                                 maxLength="20" label="Next WG/WA"
+                                 Placeholder="Enter Next WG/WA" @bind-Value="Model.Next"
+                                 ValidationExpression="() => Model.Next"/>
+        </DxFormLayoutGroup>
+
+    </DxFormLayout>
+
+</EditForm>
+
+@code {
+
+    [Parameter]
+    public Routelist Model { get; set; } = new();
+    
+    [Parameter]
+    public bool IsEditMode { get; set; }
+}
